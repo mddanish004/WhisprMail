@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { User, Settings, LogOut, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "../lib/auth-context";
+import { User, Settings, LogOut, ChevronDown } from "lucide-react";
 
-export default function ProfileDropdown({ user }) {
+export default function ProfileDropdown() {
+  const { user, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -16,52 +18,78 @@ export default function ProfileDropdown({ user }) {
     }
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Signout error:', error);
+    }
+  };
+
+  if (!user) {
+    return (
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={handleSignOut}
+          className="flex items-center space-x-2 text-gray-700 hover:text-red-600 transition-colors font-medium"
+        >
+          <LogOut className="h-4 w-4" />
+          <span>Log Out</span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+        className="flex items-center space-x-2 text-gray-700 hover:text-custom-blue transition-colors"
       >
-        <User className="h-5 w-5" />
-        <span>{user.username}</span>
+        <div className="w-8 h-8 bg-custom-blue rounded-full flex items-center justify-center">
+          <span className="text-white text-sm font-medium">
+            {user.user_metadata?.username?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <span className="font-medium">
+          {user.user_metadata?.username || user.email}
+        </span>
         <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-          <div className="px-4 py-3 border-b border-gray-100">
-            <p className="text-sm font-medium text-gray-900">{user.username}</p>
-            <p className="text-sm text-gray-500">{user.email}</p>
-          </div>
-          
-          <div className="py-1">
-            <Link 
-              href="/profile"
-              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2"
-              onClick={() => setIsOpen(false)}
-            >
-              <User className="h-4 w-4" />
-              <span>Profile</span>
-            </Link>
-            <Link 
-              href="/settings"
-              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2"
-              onClick={() => setIsOpen(false)}
-            >
-              <Settings className="h-4 w-4" />
-              <span>Settings</span>
-            </Link>
-          </div>
-          
-          <div className="border-t border-gray-100 pt-1">
-            <button className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2">
-              <LogOut className="h-4 w-4" />
-              <span>Logout</span>
-            </button>
-          </div>
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+          <Link
+            href={`/u/${user.user_metadata?.username || user.email}`}
+            className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            <User className="h-4 w-4 mr-3" />
+            Profile
+          </Link>
+          <Link
+            href="/settings"
+            className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            <Settings className="h-4 w-4 mr-3" />
+            Settings
+          </Link>
+          <button
+            onClick={() => {
+              handleSignOut();
+              setIsOpen(false);
+            }}
+            className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+          >
+            <LogOut className="h-4 w-4 mr-3" />
+            Sign Out
+          </button>
         </div>
       )}
     </div>

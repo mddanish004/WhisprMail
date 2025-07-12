@@ -94,7 +94,7 @@ export default function LandingPage() {
               <span className="text-lg font-bold select-none">
                 <span className="text-black">WhisprMail</span>
               </span>
-            </div>
+        </div>
             {/* Center: Credit */}
             <div className="text-sm text-gray-700 select-none">
               Developed by <a href="https://mddanish.me/" target="_blank" rel="noopener noreferrer" className="text-custom-blue underline hover:text-custom-blue">Md Danish Ansari</a>

@@ -1,7 +1,45 @@
+"use client";
+
 import Link from "next/link";
 import { MessageCircle, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "../../../lib/auth-context";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const { signIn } = useAuth();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const message = searchParams.get('message');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    try {
+      const result = await signIn(email, password);
+      if (result.success) {
+        // Add a small delay to ensure cookies are set
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 100);
+      } else {
+        setError(result.error || 'Invalid credentials');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -17,7 +55,12 @@ export default function LoginPage() {
 
         {/* Login Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <form className="space-y-6">
+          {message && (
+            <div className="text-green-600 text-sm text-center bg-green-50 p-3 rounded-lg mb-6">
+              {message}
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email
@@ -71,11 +114,18 @@ export default function LoginPage() {
               </Link>
             </div>
 
+            {error && (
+              <div className="text-red-600 text-sm text-center bg-red-50 p-3 rounded-lg">
+                {error}
+              </div>
+            )}
+            
             <button
               type="submit"
-              className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors font-semibold"
+              disabled={loading}
+              className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors font-semibold disabled:opacity-50"
             >
-              Sign In
+              {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
 
@@ -106,7 +156,7 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/auth/signup" className="text-custom-blue hover:text-custom-blue font-medium">
                 Sign up
               </Link>

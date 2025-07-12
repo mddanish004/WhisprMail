@@ -1,7 +1,41 @@
+"use client";
+
 import Link from "next/link";
 import { MessageCircle, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "../../../lib/auth-context";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function SignUpPage() {
+export default function SignupPage() {
+  const { signUp } = useAuth();
+  const router = useRouter();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const username = formData.get('username');
+
+    try {
+      const result = await signUp(email, password, username);
+      if (result.success) {
+        router.push('/dashboard');
+      } else {
+        setError(result.error || 'Failed to create account');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -9,15 +43,15 @@ export default function SignUpPage() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <MessageCircle className="h-8 w-8 text-custom-blue" />
-                          <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
+            <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2 font-primary">Create your account</h1>
-          <p className="text-gray-600 font-secondary">Start receiving anonymous messages today</p>
+          <p className="text-gray-600 font-secondary">Join whisprmail today</p>
         </div>
 
-        {/* Sign Up Form */}
+        {/* Signup Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
                 Username
@@ -26,9 +60,12 @@ export default function SignUpPage() {
                 type="text"
                 id="username"
                 name="username"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
-                placeholder="Choose a unique username"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Choose a username"
                 required
+                minLength={3}
+                pattern="[a-zA-Z0-9_]+"
+                title="Username can only contain letters, numbers, and underscores"
               />
             </div>
 
@@ -40,7 +77,7 @@ export default function SignUpPage() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="your@email.com"
                 required
               />
@@ -55,9 +92,10 @@ export default function SignUpPage() {
                   type="password"
                   id="password"
                   name="password"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 bg-white text-gray-900"
-                  placeholder="Create a strong password"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
+                  placeholder="Create a password"
                   required
+                  minLength={6}
                 />
                 <button
                   type="button"
@@ -66,14 +104,15 @@ export default function SignUpPage() {
                   <Eye className="h-5 w-5 text-gray-400" />
                 </button>
               </div>
+              <p className="text-xs text-gray-500 mt-1">Password must be at least 6 characters long</p>
             </div>
 
-            <div className="flex items-start">
+            <div className="flex items-center">
               <input
                 type="checkbox"
                 id="terms"
                 name="terms"
-                className="mt-1 h-4 w-4 text-custom-blue focus:ring-custom-blue border-gray-300 rounded bg-white"
+                className="h-4 w-4 text-custom-blue focus:ring-custom-blue border-gray-300 rounded"
                 required
               />
               <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
@@ -88,15 +127,22 @@ export default function SignUpPage() {
               </label>
             </div>
 
+            {error && (
+              <div className="text-red-600 text-sm text-center bg-red-50 p-3 rounded-lg">
+                {error}
+              </div>
+            )}
+            
             <button
               type="submit"
-              className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors font-semibold"
+              disabled={loading}
+              className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors font-semibold disabled:opacity-50"
             >
-              Create Account
+              {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
 
-          {/* Social Login */}
+          {/* Social Signup */}
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -120,7 +166,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* Login Link */}
+          {/* Sign In Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{" "}

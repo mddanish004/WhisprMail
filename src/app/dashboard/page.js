@@ -4,6 +4,7 @@ import { MessageCircle, Copy, Settings, LogOut, Archive, Trash2, User, Link as L
 import { formatDate, truncateText } from "@/lib/utils";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import Link from "next/link";
+import { useAuth } from "../../lib/auth-context";
 
 // Mock data for MVP
 const mockUser = {
@@ -34,6 +35,17 @@ const mockMessages = [
 ];
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  // In a real app, fetch messages for the user here
+  const currentUser = user
+    ? {
+        username: user.user_metadata?.username || user.email?.split("@")[0] || "user",
+        email: user.email,
+        publicLink: `${typeof window !== 'undefined' ? window.location.origin : 'https://whisprmail.mddanish.me'}/u/${user.user_metadata?.username || user.email?.split("@")[0] || "user"}`
+      }
+    : mockUser;
+  const messages = mockMessages; // Replace with real messages if available
+
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -51,10 +63,10 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <MessageCircle className="h-8 w-8 text-custom-blue" />
-                              <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
+              <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
             </div>
             <div className="flex items-center space-x-4">
-              <ProfileDropdown user={mockUser} />
+              <ProfileDropdown user={currentUser} />
               <Link 
                 href="/settings"
                 className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -83,12 +95,12 @@ export default function DashboardPage() {
                   <div className="flex items-center space-x-2">
                     <input
                       type="text"
-                      value={mockUser.publicLink}
+                      value={currentUser.publicLink}
                       readOnly
                       className="flex-1 text-sm bg-white border border-gray-300 rounded px-3 py-2"
                     />
                     <button
-                      onClick={() => copyToClipboard(mockUser.publicLink)}
+                      onClick={() => copyToClipboard(currentUser.publicLink)}
                       className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
                       title="Copy link"
                     >
@@ -104,15 +116,15 @@ export default function DashboardPage() {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Total Messages</span>
-                    <span className="font-semibold">{mockMessages.length}</span>
+                    <span className="font-semibold">{messages.length}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Active Messages</span>
-                    <span className="font-semibold">{mockMessages.filter(m => m.status === 'active').length}</span>
+                    <span className="font-semibold">{messages.filter(m => m.status === 'active').length}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Archived</span>
-                    <span className="font-semibold">{mockMessages.filter(m => m.status === 'archived').length}</span>
+                    <span className="font-semibold">{messages.filter(m => m.status === 'archived').length}</span>
                   </div>
                 </div>
               </div>
@@ -129,7 +141,7 @@ export default function DashboardPage() {
 
               {/* Message List */}
               <div className="divide-y divide-gray-200">
-                {mockMessages.map((message) => (
+                {messages.map((message) => (
                   <div key={message.id} className="p-6 hover:bg-gray-50 transition-colors">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -166,7 +178,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Empty State */}
-              {mockMessages.length === 0 && (
+              {messages.length === 0 && (
                 <div className="p-12 text-center">
                   <MessageCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-gray-900 mb-2">No messages yet</h3>
@@ -174,7 +186,7 @@ export default function DashboardPage() {
                     Share your public link to start receiving anonymous messages
                   </p>
                   <button
-                    onClick={() => copyToClipboard(mockUser.publicLink)}
+                    onClick={() => copyToClipboard(currentUser.publicLink)}
                     className="bg-custom-blue text-white px-4 py-2 rounded-lg hover:bg-custom-blue transition-colors inline-flex items-center"
                   >
                     <Copy className="h-4 w-4 mr-2" />
