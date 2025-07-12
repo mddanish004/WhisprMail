@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, ArrowLeft, Save, Bell, Shield, User, Key, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "../../lib/auth-context";
 
 export default function SettingsPage() {
+  const { user, loading: authLoading } = useAuth();
   const [settings, setSettings] = useState({
     emailNotifications: true,
     publicProfileVisible: true,
@@ -18,6 +20,18 @@ export default function SettingsPage() {
       [key]: !prev[key]
     }));
   };
+
+  // Show loading state if auth is still loading
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-custom-blue mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading settings...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -56,7 +70,7 @@ export default function SettingsPage() {
                 </label>
                 <input
                   type="text"
-                  defaultValue="johndoe"
+                  defaultValue={user?.user_metadata?.username || user?.email?.split("@")[0] || ""}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
@@ -66,7 +80,7 @@ export default function SettingsPage() {
                 </label>
                 <input
                   type="email"
-                  defaultValue="john@example.com"
+                  defaultValue={user?.email || ""}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
