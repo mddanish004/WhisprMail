@@ -30,11 +30,11 @@ export default function SettingsPage() {
                 <ArrowLeft className="h-5 w-5" />
               </Link>
               <div className="flex items-center space-x-2">
-                <MessageCircle className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl font-bold text-gray-900">whisprmail</span>
+                <MessageCircle className="h-8 w-8 text-custom-blue" />
+                <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
               </div>
             </div>
-            <h1 className="text-xl font-semibold text-gray-900">Settings</h1>
+            <h1 className="text-xl font-semibold text-gray-900 font-primary">Settings</h1>
           </div>
         </div>
       </header>
@@ -46,7 +46,7 @@ export default function SettingsPage() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center space-x-2">
                 <User className="h-5 w-5 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-900">Profile Settings</h2>
+                <h2 className="text-lg font-semibold text-gray-900 font-primary">Profile Settings</h2>
               </div>
             </div>
             <div className="p-6 space-y-4">
@@ -78,7 +78,7 @@ export default function SettingsPage() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center space-x-2">
                 <Bell className="h-5 w-5 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
+                <h2 className="text-lg font-semibold text-gray-900 font-primary">Notifications</h2>
               </div>
             </div>
             <div className="p-6 space-y-4">
@@ -90,7 +90,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => handleSettingChange('emailNotifications')}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'
+                    settings.emailNotifications ? 'bg-custom-blue' : 'bg-gray-200'
                   }`}
                 >
                   <span
@@ -109,7 +109,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => handleSettingChange('messageNotifications')}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    settings.messageNotifications ? 'bg-blue-600' : 'bg-gray-200'
+                    settings.messageNotifications ? 'bg-custom-blue' : 'bg-gray-200'
                   }`}
                 >
                   <span
@@ -127,7 +127,7 @@ export default function SettingsPage() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center space-x-2">
                 <Shield className="h-5 w-5 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-900">Privacy & Security</h2>
+                <h2 className="text-lg font-semibold text-gray-900 font-primary">Privacy & Security</h2>
               </div>
             </div>
             <div className="p-6 space-y-4">
@@ -139,7 +139,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => handleSettingChange('publicProfileVisible')}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    settings.publicProfileVisible ? 'bg-blue-600' : 'bg-gray-200'
+                    settings.publicProfileVisible ? 'bg-custom-blue' : 'bg-gray-200'
                   }`}
                 >
                   <span
@@ -158,7 +158,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => handleSettingChange('spamFilter')}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    settings.spamFilter ? 'bg-blue-600' : 'bg-gray-200'
+                    settings.spamFilter ? 'bg-custom-blue' : 'bg-gray-200'
                   }`}
                 >
                   <span
@@ -174,7 +174,7 @@ export default function SettingsPage() {
           {/* Account Actions */}
           <div className="bg-white rounded-lg shadow-sm mb-6">
             <div className="p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Account Actions</h2>
+              <h2 className="text-lg font-semibold text-gray-900 font-primary">Account Actions</h2>
             </div>
             <div className="p-6 space-y-4">
               <button className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center space-x-2">
@@ -190,7 +190,7 @@ export default function SettingsPage() {
 
           {/* Save Button */}
           <div className="flex justify-end">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+            <button className="bg-custom-blue text-white px-6 py-2 rounded-lg hover:bg-custom-blue transition-colors flex items-center space-x-2">
               <Save className="h-4 w-4" />
               <span>Save Changes</span>
             </button>

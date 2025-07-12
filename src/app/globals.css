@@ -31,6 +31,33 @@
   }
   body {
     @apply bg-white text-foreground;
+    font-family: var(--font-bricolage-grotesque), Arial, sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-custom-blue {
+    color: #0B666A;
+  }
+  .bg-custom-blue {
+    background-color: #0B666A;
+  }
+  .hover\:bg-custom-blue:hover {
+    background-color: #0A5A5E;
+  }
+  .border-custom-blue {
+    border-color: #0B666A;
+  }
+  .focus\:ring-custom-blue:focus {
+    --tw-ring-color: #0B666A;
+  }
+  
+  /* Font utilities */
+  .font-primary {
+    font-family: var(--font-bricolage-grotesque), Arial, sans-serif;
+  }
+  .font-secondary {
+    font-family: Arial, sans-serif;
   }
 }
 
@@ -54,6 +81,6 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-bricolage-grotesque);
+  --font-mono: Arial, sans-serif;
 }

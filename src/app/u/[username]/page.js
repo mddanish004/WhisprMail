@@ -9,13 +9,13 @@ export default function PublicMessagePage({ params }) {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <MessageCircle className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">whisprmail</span>
+            <MessageCircle className="h-8 w-8 text-custom-blue" />
+                          <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Send a message to <span className="text-blue-600">@{username}</span>
-          </h1>
-          <p className="text-gray-600">Your message will be completely anonymous</p>
+                      <h1 className="text-2xl font-bold text-gray-900 mb-2 font-primary">
+              Send a message to <span className="text-custom-blue">@{username}</span>
+            </h1>
+            <p className="text-gray-600 font-secondary">Your message will be completely anonymous</p>
         </div>
 
         {/* Message Form */}
@@ -56,7 +56,7 @@ export default function PublicMessagePage({ params }) {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center"
+              className="w-full bg-custom-blue text-white py-3 px-4 rounded-lg hover:bg-custom-blue transition-colors font-semibold flex items-center justify-center"
             >
               <Send className="h-5 w-5 mr-2" />
               Send Anonymous Message
@@ -75,12 +75,12 @@ export default function PublicMessagePage({ params }) {
           </div>
 
           {/* Conversion Modal Trigger */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h3 className="text-blue-900 font-medium mb-2">Want to receive anonymous messages too?</h3>
-            <p className="text-blue-800 text-sm mb-3">
+                      <div className="mt-6 p-4 bg-custom-blue/5 border border-custom-blue/20 rounded-lg">
+            <h3 className="text-custom-blue font-medium mb-2 font-primary">Want to receive anonymous messages too?</h3>
+            <p className="text-custom-blue text-sm mb-3 font-secondary">
               Create your own account and start receiving honest feedback from others.
             </p>
-            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                          <button className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors text-sm font-medium">
               Create Your Account
             </button>
           </div>

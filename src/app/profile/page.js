@@ -31,11 +31,11 @@ export default function ProfilePage() {
                 <ArrowLeft className="h-5 w-5" />
               </Link>
               <div className="flex items-center space-x-2">
-                <MessageCircle className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl font-bold text-gray-900">whisprmail</span>
+                <MessageCircle className="h-8 w-8 text-custom-blue" />
+                <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
               </div>
             </div>
-            <h1 className="text-xl font-semibold text-gray-900">Profile</h1>
+            <h1 className="text-xl font-semibold text-gray-900 font-primary">Profile</h1>
           </div>
         </div>
       </header>
@@ -47,17 +47,17 @@ export default function ProfilePage() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                    <User className="h-8 w-8 text-blue-600" />
+                  <div className="w-16 h-16 bg-custom-blue/10 rounded-full flex items-center justify-center">
+                    <User className="h-8 w-8 text-custom-blue" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900">{profile.firstName} {profile.lastName}</h2>
-                    <p className="text-gray-500">@{profile.username}</p>
+                    <h2 className="text-xl font-semibold text-gray-900 font-primary">{profile.firstName} {profile.lastName}</h2>
+                    <p className="text-gray-500 font-secondary">@{profile.username}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsEditing(!isEditing)}
-                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
+                  className="flex items-center space-x-2 text-custom-blue hover:text-custom-blue transition-colors"
                 >
                   <Edit className="h-4 w-4" />
                   <span>{isEditing ? 'Cancel' : 'Edit Profile'}</span>
@@ -137,7 +137,7 @@ export default function ProfilePage() {
           {/* Account Information */}
           <div className="bg-white rounded-lg shadow-sm mb-6">
             <div className="p-6 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Account Information</h3>
+              <h3 className="text-lg font-semibold text-gray-900 font-primary">Account Information</h3>
             </div>
             <div className="p-6 space-y-4">
               <div className="flex items-center justify-between">
@@ -173,7 +173,7 @@ export default function ProfilePage() {
               </button>
               <button
                 onClick={handleSave}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+                className="bg-custom-blue text-white px-6 py-2 rounded-lg hover:bg-custom-blue transition-colors flex items-center space-x-2"
               >
                 <Save className="h-4 w-4" />
                 <span>Save Changes</span>

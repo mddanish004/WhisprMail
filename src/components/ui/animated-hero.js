@@ -27,13 +27,8 @@ function Hero() {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
-          <div>
-            <Button variant="secondary" size="sm" className="gap-4 bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200">
-              <Shield className="w-4 h-4" />
-              Trusted by 10,000+ users <MoveRight className="w-4 h-4" />
-            </Button>
-          </div>
+        <div className="flex gap-8 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 items-center justify-center flex-col">
+
           <div className="flex gap-4 flex-col">
             <h1 className="text-5xl md:text-7xl max-w-4xl tracking-tighter text-center font-regular">
               <span className="text-gray-900">Receive</span>
@@ -42,7 +37,7 @@ function Hero() {
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute font-semibold text-blue-600"
+                    className="absolute font-semibold text-custom-blue"
                     initial={{ opacity: 0, y: "-100" }}
                     transition={{ type: "spring", stiffness: 50 }}
                     animate={
@@ -71,7 +66,7 @@ function Hero() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/auth/signup">
-              <Button size="lg" className="gap-4 bg-blue-600 hover:bg-blue-700">
+              <Button size="lg" className="gap-4 bg-custom-blue hover:bg-custom-blue">
                 Start Receiving Messages <MoveRight className="w-4 h-4" />
               </Button>
             </Link>

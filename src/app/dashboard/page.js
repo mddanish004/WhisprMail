@@ -50,8 +50,8 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <MessageCircle className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900">whisprmail</span>
+              <MessageCircle className="h-8 w-8 text-custom-blue" />
+                              <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
             </div>
             <div className="flex items-center space-x-4">
               <ProfileDropdown user={mockUser} />
@@ -74,7 +74,7 @@ export default function DashboardPage() {
             <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
               {/* Public Link Section */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Public Link</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 font-primary">Your Public Link</h3>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center space-x-2 mb-2">
                     <LinkIcon className="h-4 w-4 text-gray-500" />
@@ -100,7 +100,7 @@ export default function DashboardPage() {
 
               {/* Stats */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Statistics</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 font-primary">Statistics</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Total Messages</span>
@@ -123,8 +123,8 @@ export default function DashboardPage() {
           <div className="lg:col-span-3">
             <div className="bg-white rounded-lg shadow-sm">
               <div className="p-6 border-b border-gray-200">
-                <h2 className="text-2xl font-bold text-gray-900">Messages</h2>
-                <p className="text-gray-600 mt-1">View and manage your anonymous messages</p>
+                <h2 className="text-2xl font-bold text-gray-900 font-primary">Messages</h2>
+                <p className="text-gray-600 mt-1 font-secondary">View and manage your anonymous messages</p>
               </div>
 
               {/* Message List */}
@@ -155,7 +155,7 @@ export default function DashboardPage() {
                           </>
                         )}
                         {message.status === 'archived' && (
-                          <button className="p-2 text-gray-500 hover:text-blue-600 transition-colors" title="Restore">
+                          <button className="p-2 text-gray-500 hover:text-custom-blue transition-colors" title="Restore">
                             <Archive className="h-4 w-4" />
                           </button>
                         )}
@@ -175,7 +175,7 @@ export default function DashboardPage() {
                   </p>
                   <button
                     onClick={() => copyToClipboard(mockUser.publicLink)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center"
+                    className="bg-custom-blue text-white px-4 py-2 rounded-lg hover:bg-custom-blue transition-colors inline-flex items-center"
                   >
                     <Copy className="h-4 w-4 mr-2" />
                     Copy Your Link
