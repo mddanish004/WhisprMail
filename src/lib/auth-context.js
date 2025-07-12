@@ -61,6 +61,10 @@ export function AuthProvider({ children }) {
 
       if (response.ok) {
         setUser(data.user)
+        // Set access_token cookie for SSR/middleware
+        if (data.accessToken) {
+          document.cookie = `access_token=${data.accessToken}; path=/; max-age=604800;`;
+        }
         return { success: true }
       } else {
         return { success: false, error: data.error }
@@ -87,6 +91,10 @@ export function AuthProvider({ children }) {
 
       if (response.ok) {
         setUser(data.user)
+        // Set access_token cookie for SSR/middleware
+        if (data.accessToken) {
+          document.cookie = `access_token=${data.accessToken}; path=/; max-age=604800;`;
+        }
         return { success: true }
       } else {
         return { success: false, error: data.error }

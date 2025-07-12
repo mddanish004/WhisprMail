@@ -266,7 +266,7 @@ export class AuthService {
   // Verify access token
   static async verifyAccessToken(token) {
     try {
-      const decoded = verifyToken(token)
+      const decoded = await verifyToken(token)
       if (!decoded) {
         return { success: false, error: 'Invalid token' }
       }
