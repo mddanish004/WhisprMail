@@ -97,6 +97,25 @@ export function AuthProvider({ children }) {
     }
   }
 
+  // Google sign in function
+  const signInWithGoogle = async () => {
+    try {
+      const response = await fetch('/api/auth/google')
+      const data = await response.json()
+
+      if (response.ok && data.authUrl) {
+        // Redirect to Google OAuth
+        window.location.href = data.authUrl
+        return { success: true }
+      } else {
+        return { success: false, error: data.error || 'Failed to initiate Google sign in' }
+      }
+    } catch (error) {
+      console.error('Google signin error:', error)
+      return { success: false, error: 'Something went wrong' }
+    }
+  }
+
   // Sign out function
   const signOut = async () => {
     try {
@@ -143,6 +162,7 @@ export function AuthProvider({ children }) {
     loading,
     isAuthenticated: !!user,
     signIn,
+    signInWithGoogle,
     signUp,
     signOut,
     refreshAuth,

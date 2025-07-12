@@ -1,7 +1,7 @@
 import { MessageCircle, Send, CheckCircle } from "lucide-react";
 
-export default function PublicMessagePage({ params }) {
-  const { username } = params;
+export default async function PublicMessagePage({ params }) {
+  const { username } = await params;
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">

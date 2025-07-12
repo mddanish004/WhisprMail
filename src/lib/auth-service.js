@@ -70,7 +70,13 @@ export class AuthService {
           id: user.id,
           email: user.email,
           username: user.username,
-          user_metadata: { username: user.username }
+          full_name: user.full_name,
+          avatar_url: user.avatar_url,
+          user_metadata: { 
+            username: user.username,
+            full_name: user.full_name,
+            avatar_url: user.avatar_url
+          }
         },
         accessToken,
         refreshToken
@@ -124,7 +130,13 @@ export class AuthService {
           id: user.id,
           email: user.email,
           username: user.username,
-          user_metadata: { username: user.username }
+          full_name: user.full_name,
+          avatar_url: user.avatar_url,
+          user_metadata: { 
+            username: user.username,
+            full_name: user.full_name,
+            avatar_url: user.avatar_url
+          }
         },
         accessToken,
         refreshToken
@@ -222,7 +234,7 @@ export class AuthService {
     try {
       const { data: user, error } = await supabase
         .from(TABLES.USERS)
-        .select('id, email, username, created_at')
+        .select('id, email, username, full_name, avatar_url, created_at')
         .eq('id', userId)
         .single()
 
@@ -236,7 +248,13 @@ export class AuthService {
           id: user.id,
           email: user.email,
           username: user.username,
-          user_metadata: { username: user.username }
+          full_name: user.full_name,
+          avatar_url: user.avatar_url,
+          user_metadata: { 
+            username: user.username,
+            full_name: user.full_name,
+            avatar_url: user.avatar_url
+          }
         }
       }
     } catch (error) {
