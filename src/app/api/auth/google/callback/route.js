@@ -1,4 +1,3 @@
-export const runtime = 'nodejs';
 import { NextResponse } from 'next/server'
 import { exchangeCodeForTokens, getGoogleUserInfo, handleGoogleAuth } from '@/lib/google-auth'
 

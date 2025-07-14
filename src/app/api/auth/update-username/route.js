@@ -1,4 +1,3 @@
-export const runtime = 'nodejs';
 import { NextResponse } from 'next/server';
 import { AuthService } from '@/lib/auth-service';
 import { verifyToken } from '@/lib/jwt';

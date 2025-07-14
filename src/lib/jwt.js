@@ -1,4 +1,5 @@
 import * as jose from 'jose'
+import bcrypt from 'bcryptjs'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production'
 const JWT_EXPIRES_IN = '7d'
@@ -21,6 +22,15 @@ export async function verifyToken(token) {
     console.log('JWT verification failed:', error.message)
     return null
   }
+}
+
+export async function hashPassword(password) {
+  const saltRounds = 12
+  return bcrypt.hash(password, saltRounds)
+}
+
+export async function comparePassword(password, hashedPassword) {
+  return bcrypt.compare(password, hashedPassword)
 }
 
 export function extractTokenFromHeader(authHeader) {

@@ -1,6 +1,5 @@
 import { supabase, TABLES } from './supabase'
-import { generateToken, verifyToken, generateRefreshToken, verifyRefreshToken } from './jwt'
-import { hashPassword, comparePassword } from './password-utils'
+import { generateToken, verifyToken, hashPassword, comparePassword, generateRefreshToken, verifyRefreshToken } from './jwt'
 
 export class AuthService {
   static async register({ email, password, username }) {
