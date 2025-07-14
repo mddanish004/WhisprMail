@@ -4,7 +4,6 @@ import { verifyToken } from '@/lib/jwt';
 
 export async function PATCH(request) {
   try {
-    // Get access token from cookies
     const accessToken = request.cookies.get('access_token')?.value;
     if (!accessToken) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

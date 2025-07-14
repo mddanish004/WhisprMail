@@ -7,7 +7,6 @@ export async function handleSignUp(prevState, formData) {
   const password = formData.get('password')
   const username = formData.get('username')
 
-  // Basic validation
   if (!email || !password || !username) {
     return { error: 'All fields are required' }
   }
@@ -20,7 +19,6 @@ export async function handleSignUp(prevState, formData) {
     return { error: 'Username must be at least 3 characters long' }
   }
 
-  // Check if username contains only alphanumeric characters and underscores
   if (!/^[a-zA-Z0-9_]+$/.test(username)) {
     return { error: 'Username can only contain letters, numbers, and underscores' }
   }
@@ -40,12 +38,9 @@ export async function handleSignUp(prevState, formData) {
       return { error: data.error || 'Something went wrong' }
     }
 
-    // Redirect to dashboard after successful signup
     redirect('/dashboard')
   } catch (error) {
-    // Check if this is a Next.js redirect (which is expected behavior)
     if (error?.digest?.includes('NEXT_REDIRECT')) {
-      // This is expected, let it propagate
       throw error
     }
     
@@ -58,7 +53,6 @@ export async function handleSignIn(prevState, formData) {
   const email = formData.get('email')
   const password = formData.get('password')
 
-  // Basic validation
   if (!email || !password) {
     return { error: 'Email and password are required' }
   }
@@ -78,12 +72,9 @@ export async function handleSignIn(prevState, formData) {
       return { error: data.error || 'Invalid credentials' }
     }
 
-    // Redirect to dashboard after successful login
     redirect('/dashboard')
   } catch (error) {
-    // Check if this is a Next.js redirect (which is expected behavior)
     if (error?.digest?.includes('NEXT_REDIRECT')) {
-      // This is expected, let it propagate
       throw error
     }
     
@@ -103,9 +94,7 @@ export async function handleSignOut() {
 
     redirect('/')
   } catch (error) {
-    // Check if this is a Next.js redirect (which is expected behavior)
     if (error?.digest?.includes('NEXT_REDIRECT')) {
-      // This is expected, let it propagate
       throw error
     }
     

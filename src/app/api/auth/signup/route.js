@@ -5,7 +5,6 @@ export async function POST(request) {
   try {
     const { email, password, username } = await request.json()
 
-    // Basic validation
     if (!email || !password || !username) {
       return NextResponse.json(
         { error: 'Email, password, and username are required' },
@@ -27,7 +26,6 @@ export async function POST(request) {
       )
     }
 
-    // Check username format
     if (!/^[a-zA-Z0-9_]+$/.test(username)) {
       return NextResponse.json(
         { error: 'Username can only contain letters, numbers, and underscores' },
@@ -35,7 +33,6 @@ export async function POST(request) {
       )
     }
 
-    // Register user
     const result = await AuthService.register({ email, password, username })
 
     if (!result.success) {
@@ -45,26 +42,24 @@ export async function POST(request) {
       )
     }
 
-    // Create response with tokens
     const response = NextResponse.json({
       success: true,
       user: result.user,
       message: 'Account created successfully!'
     })
 
-    // Set HTTP-only cookies
     response.cookies.set('access_token', result.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 // 7 days
+      maxAge: 7 * 24 * 60 * 60 
     })
 
     response.cookies.set('refresh_token', result.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60 // 30 days
+      maxAge: 30 * 24 * 60 * 60 
     })
 
     return response

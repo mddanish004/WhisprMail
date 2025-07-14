@@ -5,7 +5,6 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json()
 
-    // Basic validation
     if (!email || !password) {
       return NextResponse.json(
         { error: 'Email and password are required' },
@@ -13,7 +12,6 @@ export async function POST(request) {
       )
     }
 
-    // Login user
     const result = await AuthService.login({ email, password })
 
     if (!result.success) {
@@ -23,25 +21,23 @@ export async function POST(request) {
       )
     }
 
-    // Create response with tokens
     const response = NextResponse.json({
       success: true,
       user: result.user
     })
 
-    // Set HTTP-only cookies
     response.cookies.set('access_token', result.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 // 7 days
+      maxAge: 7 * 24 * 60 * 60 
     })
 
     response.cookies.set('refresh_token', result.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60 // 30 days
+      maxAge: 30 * 24 * 60 * 60 
     })
 
     return response

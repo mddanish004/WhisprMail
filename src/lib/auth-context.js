@@ -18,7 +18,6 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
-  // Check authentication status
   const checkAuth = async () => {
     try {
       const response = await fetch('/api/auth/verify', {
@@ -40,12 +39,10 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Initialize auth state
   useEffect(() => {
     checkAuth()
   }, [])
 
-  // Sign up function
   const signUp = async (email, password, username) => {
     try {
       const response = await fetch('/api/auth/signup', {
@@ -61,7 +58,6 @@ export function AuthProvider({ children }) {
 
       if (response.ok) {
         setUser(data.user)
-        // Set access_token cookie for SSR/middleware
         if (data.accessToken) {
           document.cookie = `access_token=${data.accessToken}; path=/; max-age=604800;`;
         }
@@ -75,7 +71,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Sign in function
   const signIn = async (email, password) => {
     try {
       const response = await fetch('/api/auth/signin', {
@@ -91,7 +86,6 @@ export function AuthProvider({ children }) {
 
       if (response.ok) {
         setUser(data.user)
-        // Set access_token cookie for SSR/middleware
         if (data.accessToken) {
           document.cookie = `access_token=${data.accessToken}; path=/; max-age=604800;`;
         }
@@ -105,14 +99,12 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Google sign in function
   const signInWithGoogle = async () => {
     try {
       const response = await fetch('/api/auth/google')
       const data = await response.json()
 
       if (response.ok && data.authUrl) {
-        // Redirect to Google OAuth
         window.location.href = data.authUrl
         return { success: true }
       } else {
@@ -124,7 +116,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Sign out function
   const signOut = async () => {
     try {
       const response = await fetch('/api/auth/signout', {
@@ -134,7 +125,6 @@ export function AuthProvider({ children }) {
       
       if (response.ok) {
         setUser(null)
-        // Redirect to homepage after successful logout
         router.push('/')
       }
     } catch (error) {
@@ -142,7 +132,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Refresh auth state
   const refreshAuth = async () => {
     try {
       const response = await fetch('/api/auth/refresh', {
@@ -165,7 +154,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Refresh user info (force re-fetch from backend)
   const refreshUser = async () => {
     try {
       const response = await fetch('/api/auth/verify', {

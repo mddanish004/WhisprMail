@@ -28,7 +28,7 @@ export default function LoginPage() {
     try {
       const result = await signIn(email, password);
       if (result.success) {
-        // Add a small delay to ensure cookies are set
+        
         setTimeout(() => {
           router.push('/dashboard');
         }, 100);

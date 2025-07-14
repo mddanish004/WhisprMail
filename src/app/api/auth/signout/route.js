@@ -3,18 +3,14 @@ import { AuthService } from '@/lib/auth-service'
 
 export async function POST(request) {
   try {
-    // Get refresh token from cookies
     const refreshToken = request.cookies.get('refresh_token')?.value
 
-    // Logout user
     if (refreshToken) {
       await AuthService.logout(refreshToken)
     }
 
-    // Create response
     const response = NextResponse.json({ success: true })
 
-    // Clear cookies
     response.cookies.set('access_token', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

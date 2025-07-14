@@ -7,9 +7,7 @@ export async function PATCH(request, { params }) {
     const { id } = await params;
     const { status } = await request.json();
 
-    // Try to get token from cookies first (for browser/cookie auth)
     let token = request.cookies.get('access_token')?.value;
-    // Fallback to Authorization header (for API tools)
     if (!token) {
       const authHeader = request.headers.get('authorization');
       if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -34,7 +32,6 @@ export async function PATCH(request, { params }) {
 
     const userId = decoded.userId;
 
-    // Validate status
     if (!['active', 'archived', 'deleted'].includes(status)) {
       return NextResponse.json(
         { error: 'Invalid status' },
@@ -42,7 +39,6 @@ export async function PATCH(request, { params }) {
       );
     }
 
-    // Update the message status
     const { data: message, error } = await supabase
       .from('messages')
       .update({ status })
@@ -81,9 +77,7 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
 
-    // Try to get token from cookies first (for browser/cookie auth)
     let token = request.cookies.get('access_token')?.value;
-    // Fallback to Authorization header (for API tools)
     if (!token) {
       const authHeader = request.headers.get('authorization');
       if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -108,7 +102,6 @@ export async function DELETE(request, { params }) {
 
     const userId = decoded.userId;
 
-    // Delete the message
     const { error } = await supabase
       .from('messages')
       .delete()

@@ -55,8 +55,6 @@ export default function PublicMessageForm({ username }) {
       setShowSuccess(true);
       setMessage("");
       setCharCount(0);
-      
-      // Hide success message after 5 seconds
       setTimeout(() => {
         setShowSuccess(false);
       }, 5000);

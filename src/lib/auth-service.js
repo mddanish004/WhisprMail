@@ -2,10 +2,8 @@ import { supabase, TABLES } from './supabase'
 import { generateToken, verifyToken, hashPassword, comparePassword, generateRefreshToken, verifyRefreshToken } from './jwt'
 
 export class AuthService {
-  // Register new user
   static async register({ email, password, username }) {
     try {
-      // Check if user already exists
       const { data: existingUser } = await supabase
         .from(TABLES.USERS)
         .select('id')
@@ -16,7 +14,6 @@ export class AuthService {
         return { success: false, error: 'User with this email already exists' }
       }
 
-      // Check if username is taken
       const { data: existingUsername } = await supabase
         .from(TABLES.USERS)
         .select('id')
@@ -27,10 +24,8 @@ export class AuthService {
         return { success: false, error: 'Username is already taken' }
       }
 
-      // Hash password
       const hashedPassword = await hashPassword(password)
 
-      // Create user
       const { data: user, error } = await supabase
         .from(TABLES.USERS)
         .insert({
@@ -47,7 +42,6 @@ export class AuthService {
         return { success: false, error: 'Failed to create user' }
       }
 
-      // Generate tokens
       const accessToken = await generateToken({ 
         userId: user.id, 
         email: user.email, 
@@ -55,7 +49,6 @@ export class AuthService {
       })
       const refreshToken = await generateRefreshToken(user.id)
 
-      // Store refresh token in database
       await supabase
         .from(TABLES.SESSIONS)
         .insert({
@@ -87,10 +80,8 @@ export class AuthService {
     }
   }
 
-  // Login user
   static async login({ email, password }) {
     try {
-      // Find user by email
       const { data: user, error } = await supabase
         .from(TABLES.USERS)
         .select('*')
@@ -101,13 +92,11 @@ export class AuthService {
         return { success: false, error: 'Invalid credentials' }
       }
 
-      // Verify password
       const isValidPassword = await comparePassword(password, user.password)
       if (!isValidPassword) {
         return { success: false, error: 'Invalid credentials' }
       }
 
-      // Generate tokens
       const accessToken = await generateToken({ 
         userId: user.id, 
         email: user.email, 
@@ -115,7 +104,6 @@ export class AuthService {
       })
       const refreshToken = await generateRefreshToken(user.id)
 
-      // Store refresh token in database
       await supabase
         .from(TABLES.SESSIONS)
         .insert({
@@ -147,11 +135,9 @@ export class AuthService {
     }
   }
 
-  // Logout user
   static async logout(refreshToken) {
     try {
       if (refreshToken) {
-        // Remove refresh token from database
         await supabase
           .from(TABLES.SESSIONS)
           .delete()
@@ -164,16 +150,13 @@ export class AuthService {
     }
   }
 
-  // Refresh access token
   static async refreshAccessToken(refreshToken) {
     try {
-      // Verify refresh token
       const decoded = await verifyRefreshToken(refreshToken)
       if (!decoded) {
         return { success: false, error: 'Invalid refresh token' }
       }
 
-      // Check if refresh token exists in database
       const { data: session } = await supabase
         .from(TABLES.SESSIONS)
         .select('*')
@@ -185,9 +168,7 @@ export class AuthService {
         return { success: false, error: 'Invalid refresh token' }
       }
 
-      // Check if token is expired
       if (new Date(session.expires_at) < new Date()) {
-        // Remove expired token
         await supabase
           .from(TABLES.SESSIONS)
           .delete()
@@ -195,7 +176,6 @@ export class AuthService {
         return { success: false, error: 'Refresh token expired' }
       }
 
-      // Get user data
       const { data: user } = await supabase
         .from(TABLES.USERS)
         .select('*')
@@ -206,7 +186,6 @@ export class AuthService {
         return { success: false, error: 'User not found' }
       }
 
-      // Generate new access token
       const newAccessToken = await generateToken({ 
         userId: user.id, 
         email: user.email, 
@@ -229,7 +208,6 @@ export class AuthService {
     }
   }
 
-  // Get user by ID
   static async getUserById(userId) {
     try {
       const { data: user, error } = await supabase
@@ -263,7 +241,6 @@ export class AuthService {
     }
   }
 
-  // Verify access token
   static async verifyAccessToken(token) {
     try {
       const decoded = await verifyToken(token)
@@ -271,7 +248,6 @@ export class AuthService {
         return { success: false, error: 'Invalid token' }
       }
 
-      // Get user data
       const result = await this.getUserById(decoded.userId)
       if (!result.success) {
         return { success: false, error: 'User not found' }
@@ -287,10 +263,8 @@ export class AuthService {
     }
   }
 
-  // Update username
   static async updateUsername({ userId, newUsername }) {
     try {
-      // Check if username is taken
       const { data: existingUsername } = await supabase
         .from(TABLES.USERS)
         .select('id')
@@ -299,7 +273,6 @@ export class AuthService {
       if (existingUsername) {
         return { success: false, error: 'Username is already taken' };
       }
-      // Update username
       const { data: user, error } = await supabase
         .from(TABLES.USERS)
         .update({ username: newUsername })
@@ -316,10 +289,8 @@ export class AuthService {
     }
   }
 
-  // Change password
   static async changePassword({ userId, currentPassword, newPassword }) {
     try {
-      // Get user
       const { data: user, error: userError } = await supabase
         .from(TABLES.USERS)
         .select('*')
@@ -328,14 +299,11 @@ export class AuthService {
       if (userError || !user) {
         return { success: false, error: 'User not found' };
       }
-      // Verify current password
       const isValid = await comparePassword(currentPassword, user.password);
       if (!isValid) {
         return { success: false, error: 'Current password is incorrect' };
       }
-      // Hash new password
       const hashedPassword = await hashPassword(newPassword);
-      // Update password
       const { error: updateError } = await supabase
         .from(TABLES.USERS)
         .update({ password: hashedPassword })
@@ -350,14 +318,10 @@ export class AuthService {
     }
   }
 
-  // Delete account
   static async deleteAccount({ userId }) {
     try {
-      // Delete messages
       await supabase.from(TABLES.MESSAGES).delete().eq('user_id', userId);
-      // Delete sessions
       await supabase.from(TABLES.SESSIONS).delete().eq('user_id', userId);
-      // Delete user
       const { error } = await supabase.from(TABLES.USERS).delete().eq('id', userId);
       if (error) {
         return { success: false, error: 'Failed to delete user' };

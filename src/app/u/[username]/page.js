@@ -7,7 +7,6 @@ export default async function PublicMessagePage({ params }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
@@ -19,12 +18,10 @@ export default async function PublicMessagePage({ params }) {
           <p className="text-gray-600 font-secondary">Your message will be completely anonymous</p>
         </div>
 
-        {/* Message Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
           <PublicMessageForm username={username} />
         </div>
 
-        {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-sm text-gray-500">
             Powered by{" "}

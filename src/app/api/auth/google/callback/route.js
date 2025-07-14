@@ -16,37 +16,32 @@ export async function GET(request) {
       return NextResponse.redirect(new URL('/auth/login?error=no_auth_code', request.url))
     }
 
-    // Exchange code for tokens
     const tokens = await exchangeCodeForTokens(code)
     console.log('Tokens received:', { access_token: tokens.access_token ? 'present' : 'missing' })
     
-    // Get user info from Google
     const googleUser = await getGoogleUserInfo(tokens.access_token)
     console.log('Google user info received:', googleUser)
     
-    // Handle authentication
     const result = await handleGoogleAuth(googleUser)
 
     if (!result.success) {
       return NextResponse.redirect(new URL(`/auth/login?error=${encodeURIComponent(result.error)}`, request.url))
     }
 
-    // Create response with redirect
     const response = NextResponse.redirect(new URL('/dashboard', request.url))
 
-    // Set HTTP-only cookies
     response.cookies.set('access_token', result.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 // 7 days
+      maxAge: 7 * 24 * 60 * 60 
     })
 
     response.cookies.set('refresh_token', result.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60 // 30 days
+      maxAge: 30 * 24 * 60 * 60 
     })
 
     return response

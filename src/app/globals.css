@@ -52,7 +52,6 @@
     --tw-ring-color: #0B666A;
   }
   
-  /* Font utilities */
   .font-primary {
     font-family: var(--font-bricolage-grotesque), Arial, sans-serif;
   }

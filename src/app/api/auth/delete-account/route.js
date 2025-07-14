@@ -4,7 +4,6 @@ import { verifyToken } from '@/lib/jwt';
 
 export async function DELETE(request) {
   try {
-    // Get access token from cookies
     const accessToken = request.cookies.get('access_token')?.value;
     if (!accessToken) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -18,7 +17,6 @@ export async function DELETE(request) {
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
-    // Clear cookies
     const response = NextResponse.json({ success: true });
     response.cookies.set('access_token', '', {
       httpOnly: true,

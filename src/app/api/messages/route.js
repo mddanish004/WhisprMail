@@ -4,9 +4,7 @@ import { verifyToken } from '@/lib/jwt';
 
 export async function GET(request) {
   try {
-    // Try to get token from cookies first (for browser/cookie auth)
     let token = request.cookies.get('access_token')?.value;
-    // Fallback to Authorization header (for API tools)
     if (!token) {
       const authHeader = request.headers.get('authorization');
       if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -29,10 +27,8 @@ export async function GET(request) {
       );
     }
 
-    // Get user ID from the token
     const userId = decoded.userId;
 
-    // Fetch messages for the user
     const { data: messages, error } = await supabase
       .from('messages')
       .select('*')

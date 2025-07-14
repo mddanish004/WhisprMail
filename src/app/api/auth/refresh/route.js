@@ -3,7 +3,6 @@ import { AuthService } from '@/lib/auth-service'
 
 export async function POST(request) {
   try {
-    // Get refresh token from cookies
     const refreshToken = request.cookies.get('refresh_token')?.value
 
     if (!refreshToken) {
@@ -13,7 +12,6 @@ export async function POST(request) {
       )
     }
 
-    // Refresh access token
     const result = await AuthService.refreshAccessToken(refreshToken)
 
     if (!result.success) {
@@ -23,13 +21,11 @@ export async function POST(request) {
       )
     }
 
-    // Create response with new access token
     const response = NextResponse.json({
       success: true,
       user: result.user
     })
 
-    // Set new access token cookie
     response.cookies.set('access_token', result.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

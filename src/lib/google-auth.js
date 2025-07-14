@@ -1,14 +1,12 @@
 import { supabase, TABLES } from './supabase'
 import { generateToken, generateRefreshToken } from './jwt'
 
-// Google OAuth configuration
 export const GOOGLE_CONFIG = {
   clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   redirectUri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback'
 }
 
-// Generate Google OAuth URL
 export function getGoogleAuthUrl() {
   const params = new URLSearchParams({
     client_id: GOOGLE_CONFIG.clientId,
@@ -22,7 +20,6 @@ export function getGoogleAuthUrl() {
   return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`
 }
 
-// Exchange authorization code for tokens
 export async function exchangeCodeForTokens(code) {
   try {
     const response = await fetch('https://oauth2.googleapis.com/token', {
@@ -50,7 +47,6 @@ export async function exchangeCodeForTokens(code) {
   }
 }
 
-// Get user info from Google
 export async function getGoogleUserInfo(accessToken) {
   try {
     const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
@@ -70,22 +66,18 @@ export async function getGoogleUserInfo(accessToken) {
   }
 }
 
-// Handle Google authentication
 export async function handleGoogleAuth(googleUser) {
   try {
     console.log('Google user data:', googleUser)
     const { email, name, picture, id: googleId } = googleUser
 
-    // Use id as googleId, fallback to sub if available
     const finalGoogleId = googleId || googleUser.sub || googleUser.id
 
-    // Validate required fields
     if (!email || !finalGoogleId) {
       console.error('Missing required fields:', { email, finalGoogleId, googleUser })
       throw new Error('Missing required Google user information')
     }
 
-    // Check if user already exists
     const { data: existingUser } = await supabase
       .from(TABLES.USERS)
       .select('*')
@@ -95,7 +87,6 @@ export async function handleGoogleAuth(googleUser) {
     let user
 
     if (existingUser) {
-      // User exists, update Google ID if not set
       if (!existingUser.google_id) {
         await supabase
           .from(TABLES.USERS)
@@ -104,7 +95,6 @@ export async function handleGoogleAuth(googleUser) {
       }
       user = existingUser
     } else {
-      // Create new user
       const username = generateUsernameFromEmail(email)
       
       const { data: newUser, error } = await supabase
@@ -128,7 +118,6 @@ export async function handleGoogleAuth(googleUser) {
       user = newUser
     }
 
-    // Generate tokens
     const accessToken = await generateToken({ 
       userId: user.id, 
       email: user.email, 
@@ -136,7 +125,6 @@ export async function handleGoogleAuth(googleUser) {
     })
     const refreshToken = await generateRefreshToken(user.id)
 
-    // Store refresh token in database
     await supabase
       .from(TABLES.SESSIONS)
       .insert({
@@ -168,7 +156,6 @@ export async function handleGoogleAuth(googleUser) {
   }
 }
 
-// Generate username from email
 function generateUsernameFromEmail(email) {
   const baseUsername = email.split('@')[0]
   const cleanUsername = baseUsername.replace(/[^a-zA-Z0-9_]/g, '')

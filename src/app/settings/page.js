@@ -145,7 +145,6 @@ export default function SettingsPage() {
     setUsername(user?.user_metadata?.username || user?.email?.split("@")[0] || "");
   }, [user]);
 
-  // Show loading state if auth is still loading
   if (authLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">

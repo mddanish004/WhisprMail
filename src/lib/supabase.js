@@ -10,10 +10,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
   })
 }
 
-// Create Supabase client for database operations only
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Database table names
 export const TABLES = {
   USERS: 'users',
   SESSIONS: 'sessions',

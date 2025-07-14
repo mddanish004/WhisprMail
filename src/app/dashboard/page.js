@@ -15,14 +15,12 @@ export default function DashboardPage() {
   const [updatingMessage, setUpdatingMessage] = useState(null);
   const [showCopyToast, setShowCopyToast] = useState(false);
 
-  // Get user data from auth context
   const currentUser = user ? {
     username: user.username || user.user_metadata?.username || user.email?.split("@")[0] || "user",
     email: user.email,
     publicLink: `${typeof window !== 'undefined' ? window.location.origin : 'https://whisprmail.mddanish.me'}/u/${user.username || user.user_metadata?.username || user.email?.split("@")[0] || "user"}`
   } : null;
 
-  // Debug logging
   console.log('Dashboard - authLoading:', authLoading);
   console.log('Dashboard - user:', user);
   console.log('Dashboard - currentUser:', currentUser);
@@ -36,7 +34,6 @@ export default function DashboardPage() {
   const fetchMessages = async () => {
     try {
       setLoading(true);
-      // No need to get token from localStorage, cookies are sent automatically
       const response = await fetch('/api/messages');
 
       if (!response.ok) {
@@ -56,7 +53,6 @@ export default function DashboardPage() {
   const updateMessageStatus = async (messageId, newStatus) => {
     try {
       setUpdatingMessage(messageId);
-      // No need to get token from localStorage, cookies are sent automatically
       const response = await fetch(`/api/messages/${messageId}`, {
         method: 'PATCH',
         headers: {
@@ -69,7 +65,6 @@ export default function DashboardPage() {
         throw new Error('Failed to update message');
       }
 
-      // Update the message in the local state
       setMessages(prevMessages => 
         prevMessages.map(msg => 
           msg.id === messageId 
@@ -92,7 +87,6 @@ export default function DashboardPage() {
 
     try {
       setUpdatingMessage(messageId);
-      // No need to get token from localStorage, cookies are sent automatically
       const response = await fetch(`/api/messages/${messageId}`, {
         method: 'DELETE',
       });
@@ -101,7 +95,6 @@ export default function DashboardPage() {
         throw new Error('Failed to delete message');
       }
 
-      // Remove the message from the local state
       setMessages(prevMessages => 
         prevMessages.filter(msg => msg.id !== messageId)
       );
@@ -126,7 +119,6 @@ export default function DashboardPage() {
   const activeMessages = messages.filter(m => m.status === 'active');
   const archivedMessages = messages.filter(m => m.status === 'archived');
 
-  // Show loading state if auth is still loading or user is not available
   if (authLoading || !currentUser) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">

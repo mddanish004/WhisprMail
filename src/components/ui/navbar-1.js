@@ -26,7 +26,6 @@ const Navbar1 = () => {
             <span className="text-2xl font-bold text-gray-900 font-primary">Whisprmail</span>
           </div>
         
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {[
               { name: "Home", href: "/" },
@@ -48,7 +47,6 @@ const Navbar1 = () => {
             ))}
           </nav>
 
-        {/* Desktop CTA Button */}
         <motion.div
           className="hidden md:block"
           initial={{ opacity: 0, x: 20 }}
@@ -64,13 +62,11 @@ const Navbar1 = () => {
           </a>
         </motion.div>
 
-        {/* Mobile Menu Button */}
         <motion.button className="md:hidden flex items-center" onClick={toggleMenu} whileTap={{ scale: 0.9 }}>
           <Menu className="h-6 w-6 text-gray-900" />
         </motion.button>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

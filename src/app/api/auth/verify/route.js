@@ -3,7 +3,6 @@ import { AuthService } from '@/lib/auth-service'
 
 export async function GET(request) {
   try {
-    // Get access token from cookies
     const accessToken = request.cookies.get('access_token')?.value
 
     if (!accessToken) {
@@ -13,7 +12,6 @@ export async function GET(request) {
       )
     }
 
-    // Verify access token
     const result = await AuthService.verifyAccessToken(accessToken)
 
     if (!result.success) {
