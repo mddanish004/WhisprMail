@@ -21,9 +21,9 @@ const Navbar1 = () => {
               whileHover={{ rotate: 10 }}
               transition={{ duration: 0.3 }}
             >
-              <MessageCircle className="h-8 w-8 text-custom-blue" />
+              <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
             </motion.div>
-            <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
+            <span className="text-2xl font-bold text-gray-900 font-primary">Whisprmail</span>
           </div>
         
           {/* Desktop Navigation */}

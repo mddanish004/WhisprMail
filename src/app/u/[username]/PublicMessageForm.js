@@ -2,6 +2,7 @@
 
 import { MessageCircle, Send, CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function PublicMessageForm({ username }) {
   const [message, setMessage] = useState("");
@@ -9,6 +10,7 @@ export default function PublicMessageForm({ username }) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState("");
   const [charCount, setCharCount] = useState(0);
+  const router = useRouter();
 
   const handleMessageChange = (e) => {
     const value = e.target.value;
@@ -102,16 +104,6 @@ export default function PublicMessageForm({ username }) {
           </div>
         )}
 
-        {/* reCAPTCHA placeholder */}
-        <div className="bg-gray-50 rounded-lg p-4 text-center">
-          <div className="text-sm text-gray-600 mb-2">
-            reCAPTCHA verification
-          </div>
-          <div className="bg-white border border-gray-300 rounded h-10 flex items-center justify-center">
-            <span className="text-gray-400 text-sm">reCAPTCHA will be integrated here</span>
-          </div>
-        </div>
-
         <button
           type="submit"
           disabled={isSubmitting}
@@ -150,7 +142,9 @@ export default function PublicMessageForm({ username }) {
         <p className="text-custom-blue text-sm mb-3 font-secondary">
           Create your own account and start receiving honest feedback from others.
         </p>
-        <button className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors text-sm font-medium">
+        <button className="w-full bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-custom-blue transition-colors text-sm font-medium"
+          onClick={() => window.open('/', '_blank')}
+        >
           Create Your Account
         </button>
       </div>

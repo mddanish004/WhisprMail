@@ -64,7 +64,7 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <MessageCircle className="h-8 w-8 text-custom-blue" />
+            <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
                           <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
           </div>
                       <h1 className="text-2xl font-bold text-gray-900 mb-2 font-primary">Welcome back</h1>

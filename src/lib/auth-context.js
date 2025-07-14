@@ -165,6 +165,27 @@ export function AuthProvider({ children }) {
     }
   }
 
+  // Refresh user info (force re-fetch from backend)
+  const refreshUser = async () => {
+    try {
+      const response = await fetch('/api/auth/verify', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data.user)
+        return { success: true }
+      } else {
+        setUser(null)
+        return { success: false }
+      }
+    } catch (error) {
+      setUser(null)
+      return { success: false }
+    }
+  }
+
   const value = {
     user,
     loading,
@@ -174,7 +195,8 @@ export function AuthProvider({ children }) {
     signUp,
     signOut,
     refreshAuth,
-    checkAuth
+    checkAuth,
+    refreshUser
   }
 
   return (

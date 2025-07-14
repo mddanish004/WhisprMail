@@ -286,4 +286,86 @@ export class AuthService {
       return { success: false, error: 'Token verification failed' }
     }
   }
+
+  // Update username
+  static async updateUsername({ userId, newUsername }) {
+    try {
+      // Check if username is taken
+      const { data: existingUsername } = await supabase
+        .from(TABLES.USERS)
+        .select('id')
+        .eq('username', newUsername)
+        .single();
+      if (existingUsername) {
+        return { success: false, error: 'Username is already taken' };
+      }
+      // Update username
+      const { data: user, error } = await supabase
+        .from(TABLES.USERS)
+        .update({ username: newUsername })
+        .eq('id', userId)
+        .select()
+        .single();
+      if (error) {
+        return { success: false, error: 'Failed to update username' };
+      }
+      return { success: true, user };
+    } catch (error) {
+      console.error('Update username service error:', error);
+      return { success: false, error: 'Failed to update username' };
+    }
+  }
+
+  // Change password
+  static async changePassword({ userId, currentPassword, newPassword }) {
+    try {
+      // Get user
+      const { data: user, error: userError } = await supabase
+        .from(TABLES.USERS)
+        .select('*')
+        .eq('id', userId)
+        .single();
+      if (userError || !user) {
+        return { success: false, error: 'User not found' };
+      }
+      // Verify current password
+      const isValid = await comparePassword(currentPassword, user.password);
+      if (!isValid) {
+        return { success: false, error: 'Current password is incorrect' };
+      }
+      // Hash new password
+      const hashedPassword = await hashPassword(newPassword);
+      // Update password
+      const { error: updateError } = await supabase
+        .from(TABLES.USERS)
+        .update({ password: hashedPassword })
+        .eq('id', userId);
+      if (updateError) {
+        return { success: false, error: 'Failed to update password' };
+      }
+      return { success: true };
+    } catch (error) {
+      console.error('Change password service error:', error);
+      return { success: false, error: 'Failed to change password' };
+    }
+  }
+
+  // Delete account
+  static async deleteAccount({ userId }) {
+    try {
+      // Delete messages
+      await supabase.from(TABLES.MESSAGES).delete().eq('user_id', userId);
+      // Delete sessions
+      await supabase.from(TABLES.SESSIONS).delete().eq('user_id', userId);
+      // Delete user
+      const { error } = await supabase.from(TABLES.USERS).delete().eq('id', userId);
+      if (error) {
+        return { success: false, error: 'Failed to delete user' };
+      }
+      return { success: true };
+    } catch (error) {
+      console.error('Delete account service error:', error);
+      return { success: false, error: 'Failed to delete account' };
+    }
+  }
 } 

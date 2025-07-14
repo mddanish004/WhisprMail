@@ -31,7 +31,7 @@ export default function ProfilePage() {
                 <ArrowLeft className="h-5 w-5" />
               </Link>
               <div className="flex items-center space-x-2">
-                <MessageCircle className="h-8 w-8 text-custom-blue" />
+                <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
                 <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
               </div>
             </div>
