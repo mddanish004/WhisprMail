@@ -5,8 +5,9 @@ import { MessageCircle, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../../../lib/auth-context";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Suspense } from "react";
 
-export default function LoginPage() {
+export function LoginPage() {
   const { signIn, signInWithGoogle } = useAuth();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -192,5 +193,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPageWithSuspense() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginPage />
+    </Suspense>
   );
 } 
