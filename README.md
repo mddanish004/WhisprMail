@@ -1,96 +1,41 @@
-# whisprmail
+# WhisprMail
 
-A modern anonymous messaging platform built with Next.js 15, React 19, and Tailwind CSS.
+A modern, secure messaging platform built with Next.js, featuring comprehensive user authentication, profile management, and real-time messaging capabilities.
 
-## Features
+## ✨ Features
 
-- 🎨 Modern, responsive UI with Tailwind CSS
-- 🔐 Simple authentication system
-- 📱 Mobile-first design
-- ⚡ Fast performance with Next.js 15
-- 🎯 Type-safe development
-- 🔒 Secure anonymous messaging
+### 🔐 Authentication & Security
+- **Email/Password Authentication** - Secure user registration and login
+- **Google OAuth Integration** - Quick sign-in with Google accounts
+- **JWT-based Session Management** - Secure token-based authentication
+- **Password Management** - Change passwords, account deletion, and reset functionality
+- **Email Verification** - Verify user accounts via email
+- **Account Management** - Update usernames and manage account settings
 
-## Getting Started
+### 💬 Messaging System
+- **Private Messaging** - Send and receive secure messages
+- **Message Retrieval** - View message history and conversations
+- **Public Message Forms** - Allow users to send messages through public forms
+- **User-specific Message Pages** - Dedicated pages for individual user messaging
 
-### Prerequisites
+### 👤 User Management
+- **User Dashboard** - Personalized dashboard for logged-in users
+- **Profile Management** - View and update user profiles
+- **Settings Page** - Comprehensive user preferences and settings
+- **Username Updates** - Change display names easily
 
-- Node.js 18+ 
-- npm or yarn
+### 🎨 User Interface
+- **Responsive Design** - Works seamlessly across all devices
+- **Reusable Components** - Modular UI components (buttons, navbar, dropdowns)
+- **Animated Hero Section** - Engaging landing page experience
+- **Modern Styling** - Clean, contemporary design with PostCSS
 
-### Installation
+## 🛠️ Technology Stack
 
-1. Clone the repository
-```bash
-git clone https://github.com/yourusername/whisprmail.git
-cd whisprmail
-```
-
-2. Install dependencies
-```bash
-npm install
-```
-
-3. Set up environment variables
-```bash
-cp .env.example .env.local
-```
-
-Edit `.env.local` and add:
-```env
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-```
-
-4. Run the development server
-```bash
-npm run dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router
-│   ├── auth/              # Authentication pages
-│   ├── dashboard/         # Dashboard pages
-│   └── globals.css        # Global styles
-├── components/            # Reusable components
-├── lib/                   # Utility functions
-│   ├── actions.js         # Server actions
-│   ├── auth-context.js    # Authentication context
-│   └── utils.js           # Utility functions
-└── middleware.js          # Next.js middleware
-```
-
-## Authentication
-
-The app uses a simple authentication system with the following features:
-
-- User registration and login
-- Session management with localStorage
-- Protected routes with middleware
-- Automatic redirects based on auth state
-
-## Key Files
-
-- `src/lib/auth-context.js` - Authentication context and state management
-- `src/middleware.js` - Route protection and redirects
-- `src/app/dashboard/page.js` - Main dashboard page
-- `src/components/ProfileDropdown.js` - User profile dropdown
-
-## Deployment
-
-The app can be deployed to Vercel, Netlify, or any other Next.js-compatible hosting platform.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details
+- **Framework**: [Next.js](https://nextjs.org/) (App Router)
+- **Backend**: [Supabase](https://supabase.com/) (Database & Authentication)
+- **Authentication**: JWT + Google OAuth
+- **Styling**: Tailwindcss
+- **Language**: JavaScript
+- **Linting**: ESLint
+- **Deployment**: Vercel-ready
