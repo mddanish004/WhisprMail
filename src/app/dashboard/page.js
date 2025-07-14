@@ -152,13 +152,15 @@ export default function DashboardPage() {
       )}
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
-              <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
+        <div className="container mx-auto px-2 sm:px-4 py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 w-full sm:w-auto justify-between">
+              <div className="flex items-center space-x-2">
+                <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
+                <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
+              </div>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
               <ProfileDropdown user={currentUser} />
               <Link 
                 href="/settings"
@@ -172,25 +174,27 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-4 gap-8">
+      <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8">
+        <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
+          <div className="lg:col-span-1 mb-6 lg:mb-0 w-full">
+            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 space-y-5 sm:space-y-6">
               {/* Public Link Section */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 font-primary">Your Public Link</h3>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <LinkIcon className="h-4 w-4 text-gray-500" />
-                    <span className="text-sm font-medium text-gray-700">Share this link to receive messages</span>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 font-primary">Your Public Link</h3>
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 mb-2 space-y-2 sm:space-y-0">
+                    <div className="flex items-center space-x-2">
+                      <LinkIcon className="h-4 w-4 text-gray-500" />
+                      <span className="text-xs sm:text-sm font-medium text-gray-700">Share this link to receive messages</span>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
                     <input
                       type="text"
                       value={currentUser.publicLink}
                       readOnly
-                      className="flex-1 text-sm bg-white border border-gray-300 rounded px-3 py-2"
+                      className="flex-1 text-xs sm:text-sm bg-white border border-gray-300 rounded px-3 py-2"
                     />
                     <button
                       onClick={() => copyToClipboard(currentUser.publicLink)}
@@ -205,17 +209,17 @@ export default function DashboardPage() {
 
               {/* Stats */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 font-primary">Statistics</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 font-primary">Statistics</h3>
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Total Messages</span>
                     <span className="font-semibold">{messages.length}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Active Messages</span>
                     <span className="font-semibold">{activeMessages.length}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-600">Archived</span>
                     <span className="font-semibold">{archivedMessages.length}</span>
                   </div>
@@ -225,25 +229,25 @@ export default function DashboardPage() {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 w-full">
             <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex items-center justify-between">
+              <div className="p-4 sm:p-6 border-b border-gray-200">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 font-primary">Messages</h2>
-                    <p className="text-gray-600 mt-1 font-secondary">View and manage your anonymous messages</p>
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 font-primary">Messages</h2>
+                    <p className="text-gray-600 mt-1 font-secondary text-sm sm:text-base">View and manage your anonymous messages</p>
                   </div>
                   {error && (
-                    <div className="text-red-600 text-sm">{error}</div>
+                    <div className="text-red-600 text-xs sm:text-sm">{error}</div>
                   )}
                 </div>
               </div>
 
               {/* Loading State */}
               {loading && (
-                <div className="p-12 text-center">
+                <div className="p-8 sm:p-12 text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-custom-blue mx-auto mb-4"></div>
-                  <p className="text-gray-600">Loading messages...</p>
+                  <p className="text-gray-600 text-sm sm:text-base">Loading messages...</p>
                 </div>
               )}
 
@@ -251,11 +255,11 @@ export default function DashboardPage() {
               {!loading && (
                 <div className="divide-y divide-gray-200">
                   {messages.map((message) => (
-                    <div key={message.id} className="p-6 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <p className="text-gray-900 mb-2">{message.content}</p>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500">
+                    <div key={message.id} className="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex-1 w-full">
+                          <p className="text-gray-900 mb-2 text-sm sm:text-base break-words">{message.content}</p>
+                          <div className="flex flex-wrap items-center space-x-2 text-xs sm:text-sm text-gray-500">
                             <span>{formatDate(new Date(message.created_at))}</span>
                             {message.status === 'archived' && (
                               <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">
@@ -264,7 +268,7 @@ export default function DashboardPage() {
                             )}
                           </div>
                         </div>
-                        <div className="flex items-center space-x-2 ml-4">
+                        <div className="flex flex-row flex-wrap items-center space-x-2 sm:space-x-2 ml-0 sm:ml-4 gap-y-2">
                           {message.status === 'active' && (
                             <>
                               <button 
@@ -312,15 +316,15 @@ export default function DashboardPage() {
 
               {/* Empty State */}
               {!loading && messages.length === 0 && (
-                <div className="p-12 text-center">
-                  <MessageCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No messages yet</h3>
-                  <p className="text-gray-600 mb-4">
+                <div className="p-8 sm:p-12 text-center">
+                  <MessageCircle className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No messages yet</h3>
+                  <p className="text-gray-600 mb-4 text-sm sm:text-base">
                     Share your public link to start receiving anonymous messages
                   </p>
                   <button
                     onClick={() => copyToClipboard(currentUser.publicLink)}
-                    className="bg-custom-blue text-white px-4 py-2 rounded-lg hover:bg-custom-blue transition-colors inline-flex items-center"
+                    className="bg-custom-blue text-white px-4 py-2 rounded-lg hover:bg-custom-blue transition-colors inline-flex items-center text-xs sm:text-sm"
                   >
                     <Copy className="h-4 w-4 mr-2" />
                     Copy Your Link
@@ -333,7 +337,7 @@ export default function DashboardPage() {
       </div>
       {/* Custom Footer (copied from homepage) */}
       <footer className="w-full border-t bg-white mt-auto" style={{fontFamily: 'var(--font-bricolage-grotesque), Arial, sans-serif'}}>
-        <div className="container mx-auto px-4 pt-6 pb-2">
+        <div className="container mx-auto px-2 sm:px-4 pt-6 pb-2">
           {/* Desktop Layout */}
           <div className="hidden md:flex items-center justify-between">
             {/* Left: Brand */}

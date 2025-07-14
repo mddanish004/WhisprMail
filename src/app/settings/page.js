@@ -186,9 +186,9 @@ export default function SettingsPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="container mx-auto px-2 sm:px-4 py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 w-full sm:w-auto">
               <Link href="/dashboard" className="text-gray-600 hover:text-gray-900 transition-colors">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
@@ -197,22 +197,22 @@ export default function SettingsPage() {
                 <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
               </div>
             </div>
-            <h1 className="text-xl font-semibold text-gray-900 font-primary">Settings</h1>
+            <h1 className="text-lg sm:text-xl font-semibold text-gray-900 font-primary mt-2 sm:mt-0">Settings</h1>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
+      <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8">
+        <div className="max-w-full sm:max-w-2xl mx-auto">
           {/* Profile Settings */}
           <form onSubmit={handleSave} className="bg-white rounded-lg shadow-sm mb-6">
-            <div className="p-6 border-b border-gray-200">
+            <div className="p-4 sm:p-6 border-b border-gray-200">
               <div className="flex items-center space-x-2">
                 <User className="h-5 w-5 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-900 font-primary">Profile Settings</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900 font-primary">Profile Settings</h2>
               </div>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-4">
               {successMsg && <div className="text-green-600 text-sm mb-2">{successMsg}</div>}
               {errorMsg && <div className="text-red-600 text-sm mb-2">{errorMsg}</div>}
               <div>
@@ -223,7 +223,7 @@ export default function SettingsPage() {
                   type="text"
                   value={username}
                   onChange={e => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                   minLength={3}
                   pattern="[a-zA-Z0-9_]+"
                   required
@@ -237,14 +237,14 @@ export default function SettingsPage() {
                 <input
                   type="email"
                   value={user?.email || ""}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-100 cursor-not-allowed"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-100 cursor-not-allowed text-sm sm:text-base"
                   readOnly
                 />
               </div>
             </div>
-            <div className="flex justify-end px-6 pb-6">
+            <div className="flex justify-end px-4 sm:px-6 pb-4 sm:pb-6">
               {username !== originalUsername && (
-                <button type="submit" disabled={saving} className="bg-custom-blue text-white px-6 py-2 rounded-lg hover:bg-custom-blue transition-colors flex items-center space-x-2 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="bg-custom-blue text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-custom-blue transition-colors flex items-center space-x-2 disabled:opacity-60 text-sm sm:text-base">
                   {saving ? <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span> : <Save className="h-4 w-4" />}
                   <span>{saving ? "Saving..." : "Save Changes"}</span>
                 </button>
@@ -254,15 +254,15 @@ export default function SettingsPage() {
 
           {/* Account Actions */}
           <div className="bg-white rounded-lg shadow-sm mb-6">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 font-primary">Account Actions</h2>
+            <div className="p-4 sm:p-6 border-b border-gray-200">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 font-primary">Account Actions</h2>
             </div>
-            <div className="p-6 space-y-4">
-              <button type="button" onClick={() => setShowPasswordModal(true)} className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center space-x-2">
+            <div className="p-4 sm:p-6 space-y-4">
+              <button type="button" onClick={() => setShowPasswordModal(true)} className="w-full text-left px-4 py-3 text-xs sm:text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center space-x-2">
                 <Key className="h-4 w-4" />
                 <span>Change Password</span>
               </button>
-              <button type="button" onClick={() => setShowDeleteModal(true)} className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center space-x-2">
+              <button type="button" onClick={() => setShowDeleteModal(true)} className="w-full text-left px-4 py-3 text-xs sm:text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center space-x-2">
                 <Trash2 className="h-4 w-4" />
                 <span>Delete Account</span>
               </button>

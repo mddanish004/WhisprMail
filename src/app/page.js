@@ -13,35 +13,35 @@ export default function LandingPage() {
       <Hero />
 
       {/* Features Section */}
-      <section id="features" className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12 font-primary">
+      <section id="features" className="container mx-auto px-2 sm:px-4 py-10 sm:py-16">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 font-primary">
           Why Choose whisprmail?
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="text-center p-6">
-            <div className="bg-custom-blue/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Shield className="h-8 w-8 text-custom-blue" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="text-center p-4 sm:p-6">
+            <div className="bg-custom-blue/10 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <Shield className="h-7 w-7 sm:h-8 sm:w-8 text-custom-blue" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 font-primary">100% Anonymous</h3>
-            <p className="text-gray-600 font-secondary">
+            <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-gray-900 font-primary">100% Anonymous</h3>
+            <p className="text-gray-600 font-secondary text-sm sm:text-base">
               Senders remain completely anonymous. No registration required to send messages.
             </p>
           </div>
-          <div className="text-center p-6">
-            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <MessageCircle className="h-8 w-8 text-green-600" />
+          <div className="text-center p-4 sm:p-6">
+            <div className="bg-green-100 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <MessageCircle className="h-7 w-7 sm:h-8 sm:w-8 text-green-600" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 font-primary">Easy to Use</h3>
-            <p className="text-gray-600 font-secondary">
+            <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-gray-900 font-primary">Easy to Use</h3>
+            <p className="text-gray-600 font-secondary text-sm sm:text-base">
               Get your unique link instantly. Share it anywhere and start receiving messages.
             </p>
           </div>
-          <div className="text-center p-6">
-            <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="h-8 w-8 text-purple-600" />
+          <div className="text-center p-4 sm:p-6">
+            <div className="bg-purple-100 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <Users className="h-7 w-7 sm:h-8 sm:w-8 text-purple-600" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 font-primary">Viral Growth</h3>
-            <p className="text-gray-600 font-secondary">
+            <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-gray-900 font-primary">Viral Growth</h3>
+            <p className="text-gray-600 font-secondary text-sm sm:text-base">
               Built-in conversion funnel encourages message senders to create their own accounts.
             </p>
           </div>
@@ -49,35 +49,35 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="container mx-auto px-4 py-16 bg-white">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12 font-primary">
+      <section id="how-it-works" className="container mx-auto px-2 sm:px-4 py-10 sm:py-16 bg-white">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 font-primary">
           How It Works
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
           <div className="text-center">
-            <div className="bg-custom-blue text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+            <div className="bg-custom-blue text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 text-lg sm:text-xl font-bold">
               1
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 font-primary">Create Account</h3>
-            <p className="text-gray-600 font-secondary">
+            <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-gray-900 font-primary">Create Account</h3>
+            <p className="text-gray-600 font-secondary text-sm sm:text-base">
               Sign up and get your unique public link instantly
             </p>
           </div>
           <div className="text-center">
-            <div className="bg-custom-blue text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+            <div className="bg-custom-blue text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 text-lg sm:text-xl font-bold">
               2
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 font-primary">Share Your Link</h3>
-            <p className="text-gray-600 font-secondary">
+            <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-gray-900 font-primary">Share Your Link</h3>
+            <p className="text-gray-600 font-secondary text-sm sm:text-base">
               Share your link on social media, bio, or anywhere you want feedback
             </p>
           </div>
           <div className="text-center">
-            <div className="bg-custom-blue text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+            <div className="bg-custom-blue text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 text-lg sm:text-xl font-bold">
               3
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 font-primary">Receive Messages</h3>
-            <p className="text-gray-600 font-secondary">
+            <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-gray-900 font-primary">Receive Messages</h3>
+            <p className="text-gray-600 font-secondary text-sm sm:text-base">
               View anonymous messages in your private dashboard
             </p>
           </div>
