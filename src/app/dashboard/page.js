@@ -143,23 +143,24 @@ export default function DashboardPage() {
         </div>
       )}
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white shadow-sm border-b relative">
         <div className="container mx-auto px-2 sm:px-4 py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div className="flex items-center space-x-2 w-full sm:w-auto justify-between">
               <div className="flex items-center space-x-2">
                 <img src="/pentastudio.svg" alt="PentaStudio Logo" className="h-8 w-8" />
-                <span className="text-2xl font-bold text-gray-900 font-primary">whisprmail</span>
+                <span className="text-2xl font-bold text-gray-900 font-primary hidden sm:inline">whisprmail</span>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+            {/* Responsive user/settings section - absolute on mobile, static on sm+ */}
+            <div className="absolute top-4 right-4 sm:static sm:top-auto sm:right-auto flex flex-row items-center justify-end gap-2 sm:gap-4 mt-0 whitespace-nowrap">
               <ProfileDropdown user={currentUser} />
               <Link 
                 href="/settings"
                 className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
               >
                 <Settings className="h-5 w-5" />
-                <span>Settings</span>
+                <span className="hidden xs:inline">Settings</span>
               </Link>
             </div>
           </div>
