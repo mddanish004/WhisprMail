@@ -12,6 +12,7 @@ export default function SignupPage() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -106,7 +107,7 @@ export default function SignupPage() {
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 text-sm sm:text-base"
@@ -117,8 +118,15 @@ export default function SignupPage() {
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                  ) : (
+                    <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                  )}
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-1">Password must be at least 6 characters long</p>
